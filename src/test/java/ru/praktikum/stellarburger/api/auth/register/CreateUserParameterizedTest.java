@@ -13,7 +13,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(Parameterized.class)
 public class CreateUserParameterizedTest extends TestBase {
-    public String userAccessToken;
     private final String email;
     private final String password;
     private final String name;
