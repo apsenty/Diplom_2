@@ -2,7 +2,7 @@
 Проект по автоматизации тестирования API учебного приложения Stellar Burger.
 
 Используемые технологии:
-<li> Maven 4.0.0
+<li> Maven 3.9.1
 <li> Rest-Assured 5.3.0
 <li> JUnit 4.13.2
 <li> Allure 2.21.0
