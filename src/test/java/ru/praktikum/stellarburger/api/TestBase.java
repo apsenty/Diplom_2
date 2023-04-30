@@ -10,7 +10,7 @@ public class TestBase {
     private final String email = "olgaleto@yandex.ru";
     private final String password = "qaws1234";
     private final String name = "Apsenty";
-    private String userAccessToken;
+    protected String userAccessToken;
     private final String URI_DELETE_USER = "/api/auth/user";
 
     @Before
