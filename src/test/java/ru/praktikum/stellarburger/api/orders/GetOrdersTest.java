@@ -29,6 +29,13 @@ public class GetOrdersTest extends TestBase {
                 .post("/api/orders");
     }
 
+    @Step("Отправка запроса списка заказов с авторизацией")
+    public Response sendRequestGetOrderListWithToken() {
+        return given()
+                .auth().oauth2(super.userAccessToken)
+                .get(URI_GET_ORDER);
+    }
+
     @Test
     @DisplayName("Получение списка заказов пользователя - с авторизацией")
     public void getOrderListWithTokenShouldReturnOk() {
@@ -36,18 +43,18 @@ public class GetOrdersTest extends TestBase {
         Response createOrderResponse = sendRequestCreateOrder();
         createOrderResponse.then().statusCode(200);
         //шаг 2 - запрос списка заказов пользователя
-        given()
-                .auth().oauth2(super.userAccessToken)
-                .get(URI_GET_ORDER)
-                .then().statusCode(200)
+        Response orderListResponse = sendRequestGetOrderListWithToken();
+        orderListResponse.then().statusCode(200)
                 .and().assertThat().body("success", equalTo(true))
                 .and().assertThat().body("orders", notNullValue());
     }
 
     @Test
     @DisplayName("Получение списка заказов пользователя - без авторизации")
+    @Step("Отправка запроса списка заказов без авторизации")
     public void getOrderListWithoutTokenShouldReturnError() {
-        given().get(URI_GET_ORDER).then().statusCode(401)
+        given()
+                .get(URI_GET_ORDER).then().statusCode(401)
                 .and()
                 .assertThat().body("message", equalTo("You should be authorised"));
     }

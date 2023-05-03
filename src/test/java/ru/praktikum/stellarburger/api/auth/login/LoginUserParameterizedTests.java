@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburger.api.auth.login;
 
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class LoginUserParameterizedTests extends TestBase {
 
     @Test
     @DisplayName("Ошибка при некорректной авторизации пользователя")
+    @Step("Отправка запроса авторизации")
     public void loginUserWrongFieldsShouldReturnError() {
         LoginUser loginUser = new LoginUser(email, password);
         Response loginUserResponse = loginUser.getLoginUserResponse(loginUser);

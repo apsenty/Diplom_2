@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburger.api.auth.register;
 
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -39,6 +40,7 @@ public class CreateUserParameterizedTest extends TestBase {
 
     @Test
     @DisplayName("Регистрация пользователя без обязательного поля")
+    @Step("Отправка запроса создания пользователя")
     public void createUserCreateWithoutRequiredFieldShouldReturnError() {
         CreateUser createUser = new CreateUser(email, password, name);
         Response createUserResponse = createUser.getCreateUserResponse(createUser);

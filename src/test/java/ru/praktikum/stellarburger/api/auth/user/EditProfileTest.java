@@ -23,6 +23,12 @@ public class EditProfileTest extends TestBase {
                 .patch(URI_EDIT_PROFILE);
     }
 
+    @Step("Отправка запроса авторизации")
+    public Response sendRequestLoginUser(String email, String password) {
+        LoginUser loginUser = new LoginUser(email, password);
+        return loginUser.getLoginUserResponse(loginUser);
+    }
+
     @Test
     @DisplayName("Успешное изменение профиля")
     public void editProfilePositiveCheck(){
@@ -41,8 +47,7 @@ public class EditProfileTest extends TestBase {
         Response editUserResponse = sendRequestEditProfile(null, "qaws111", null);
         editUserResponse.then().statusCode(200);
         //шаг 2 - авторизация с новым паролем
-        LoginUser loginUser = new LoginUser("olgaleto@yandex.ru", "qaws111");
-        Response loginUserResponse = loginUser.getLoginUserResponse(loginUser);
+        Response loginUserResponse = sendRequestLoginUser("olgaleto@yandex.ru", "qaws111");
         loginUserResponse.then().statusCode(200)
                 .and()
                 .assertThat().body("success", equalTo(true));
@@ -55,8 +60,7 @@ public class EditProfileTest extends TestBase {
         Response editUserResponse = sendRequestEditProfile(null, "qaws111", null);
         editUserResponse.then().statusCode(200);
         //шаг 2 - авторизация со старым паролем
-        LoginUser loginUser = new LoginUser("olgaleto@yandex.ru", "qaws1234");
-        Response loginUserResponse = loginUser.getLoginUserResponse(loginUser);
+        Response loginUserResponse = sendRequestLoginUser("olgaleto@yandex.ru", "qaws1234");
         loginUserResponse.then().statusCode(401)
                 .and()
                 .assertThat().body("success", equalTo(false));
@@ -64,6 +68,7 @@ public class EditProfileTest extends TestBase {
 
     @Test
     @DisplayName("Изменение профиля без авторизации")
+    @Step("Отправка запроса изменения профиля без авторизации")
     public void editProfileWithoutTokenShouldReturnError() {
         EditProfile editProfile = new EditProfile("olgazima@yandex.ru", "qaws111", "Olga");
         Response editProfileResponse = given()

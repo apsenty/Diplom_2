@@ -20,7 +20,7 @@ public class CreateUserTest extends TestBase {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
     }
 
-    @Step("Отправка запроса на создание курьера")
+    @Step("Отправка запроса на создание пользователя")
     public Response sendRequestCreateUser(String email, String password, String name) {
         CreateUser createUser = new CreateUser(email, password, name);
         return createUser.getCreateUserResponse(createUser);

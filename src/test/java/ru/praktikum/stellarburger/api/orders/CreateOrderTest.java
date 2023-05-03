@@ -28,6 +28,7 @@ public class CreateOrderTest extends TestBase {
 
     @Test
     @DisplayName("Создание заказа с ингредиентами с авторизацией пользователя")
+    @Step("Отправка запроса на создание заказа авторизованным пользователем")
     public void createOrderWithTokenShouldReturnOk() {
         List<String> ingredients = new ArrayList<>();
         ingredients.add("61c0c5a71d1f82001bdaaa6d");//bun
