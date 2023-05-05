@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.praktikum.stellarburger.api.TestBase;
+import ru.praktikum.stellarburger.api.auth.login.LoginUser;
+
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(Parameterized.class)
@@ -50,5 +52,9 @@ public class CreateUserParameterizedTest extends TestBase {
     }
 
     @After
-    public void tearDown() {}
+    public void tearDown() {
+        LoginUser loginUser = new LoginUser(email, password);
+        Response loginUserResponse = loginUser.getLoginUserResponse(loginUser);
+        loginUserResponse.then().statusCode(401);
+    }
 }

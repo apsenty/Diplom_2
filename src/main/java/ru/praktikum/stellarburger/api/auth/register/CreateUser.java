@@ -14,7 +14,7 @@ public class CreateUser {
         this.name = name;
     }
 
-    public CreateUser() {} //конструктор без параметров
+    public CreateUser() {}
 
 
     public String getEmail() {

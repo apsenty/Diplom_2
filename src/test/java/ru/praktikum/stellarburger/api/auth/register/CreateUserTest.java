@@ -58,10 +58,6 @@ public class CreateUserTest extends TestBase {
 
     @After
     public void tearDown() {
-        /* LoginUser loginUser = new LoginUser("olgaleto@yandex.ru", "qaws1234");
-        LoginUserResponse loginUserResponse = loginUser.getLoginUserResponse(loginUser)
-                .body().as(LoginUserResponse.class);
-        userAccessToken = loginUserResponse.getAccessToken().replace("Bearer ",""); */
         given()
                 .auth().oauth2(userAccessToken)
                 .delete("/api/auth/user");
