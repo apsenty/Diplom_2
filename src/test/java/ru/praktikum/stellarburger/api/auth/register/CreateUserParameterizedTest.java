@@ -4,18 +4,15 @@ import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import ru.praktikum.stellarburger.api.TestBase;
-import ru.praktikum.stellarburger.api.auth.login.LoginUser;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(Parameterized.class)
-public class CreateUserParameterizedTest extends TestBase {
+public class CreateUserParameterizedTest {
     private final String email;
     private final String password;
     private final String name;
@@ -49,12 +46,5 @@ public class CreateUserParameterizedTest extends TestBase {
         createUserResponse.then().statusCode(403)
                 .and()
                 .assertThat().body("message", equalTo("Email, password and name are required fields"));
-    }
-
-    @After
-    public void tearDown() {
-        LoginUser loginUser = new LoginUser(email, password);
-        Response loginUserResponse = loginUser.getLoginUserResponse(loginUser);
-        loginUserResponse.then().statusCode(401);
     }
 }
